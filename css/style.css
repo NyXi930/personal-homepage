@@ -1,0 +1,25 @@
+body {
+    background-color: #f4f4f4;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+#main-title {
+    color: #007bff;
+    font-size: 36px;
+}
+.section-title {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
+a:hover {
+    color: red;
+}
+#wrapper {
+    width: 960px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+}
