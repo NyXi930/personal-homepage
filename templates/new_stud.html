@@ -1,0 +1,29 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>添加新学生</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="" class="form">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.id.label(class="form-control-label") }}
+                    {{ form.id(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.major.label(class="form-control-label") }}
+                    {{ form.major(class="form-control") }}
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
