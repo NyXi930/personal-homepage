@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}学生列表{% endblock %}
+
+{% block page_content %}
+<h1>学生信息列表</h1>
+
+<!-- 专业筛选 -->
+<div class="well">
+    <label for="major">按专业筛选：</label>
+    <select id="major" onchange="window.location.href='{{ url_for('main.filter_by_major', major_id='0') }}' + (this.value || '0')">
+        <option value="">所有专业</option>
+        {% for m in majors %}   
+            <option value="{{ m.id }}" {% if current_major and current_major.id == m.id %}selected{% endif %}>
+                {{ m.major_name }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<!-- 学生表格 -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>专业</th>
+            {% if current_user.is_admin() %}
+                <th>操作</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for stud in studs %}
+        <tr>
+            <td>{{ stud.student_id }}</td>
+            <td>{{ stud.student_name }}</td>
+            <td>{{ stud.major.major_name if stud.major else '未分配' }}</td>
+            {% if current_user.is_admin() %}
+                <td>
+                    <a href="{{ url_for('main.edit_stud', stu_id=stud.student_id) }}" class="btn btn-sm btn-warning">编辑</a>
+                    <form action="{{ url_for('main.del_stud', stud_id=stud.student_id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('确定删除？')">删除</button>
+                    </form>
+                </td>
+            {% endif %}
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="{% if current_user.is_admin() %}4{% else %}3{% endif %}">暂无学生记录</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
