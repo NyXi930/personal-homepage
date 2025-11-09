@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}用户注册{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>注册新账户</h1>
+    <div class="row">
+        <div class="col-md-6">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <br>
+    <p>已有账户？<a href="{{ url_for('login') }}">点击登录</a></p>
+</div>
+{% endblock %}

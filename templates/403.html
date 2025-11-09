@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}权限不足{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>权限不足</h1>
+    <p>你没有执行该操作的权限，请联系管理员。</p>
+    <a href="{{ url_for('index') }}" class="btn btn-default">返回首页</a>
+</div>
+{% endblock %}

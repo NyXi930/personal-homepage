@@ -1,28 +1,40 @@
-{%extends "bootstrap/base.html"%}
-{%block title%}我的WEB应用{%endblock%}
-{%block navbar%}
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">我的WEB应用</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">首页</a></li>
-                    <li><a href="/user">用户</a></li>
-                </ul>
-            </div> <!--/.nav-collapse -->
-        </div>
-    </nav>
-{%endblock%}
-{%block content%}
+{% extends "bootstrap/base.html" %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse">
     <div class="container">
-        {%block page_content%}{%endblock%}
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('index') }}">学生信息管理系统</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('index') }}">首页</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                    <!-- 已登录状态：显示用户名和登出 -->
+                    <li><a>你好, {{ current_user.username }}</a></li>
+                    <li><a href="{{ url_for('logout') }}">登出</a></li>
+                {% else %}
+                    <!-- 未登录状态：显示登录和注册 -->
+                    <li><a href="{{ url_for('login') }}">登录</a></li>
+                    <li><a href="{{ url_for('register') }}">注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-{%endblock%}
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
